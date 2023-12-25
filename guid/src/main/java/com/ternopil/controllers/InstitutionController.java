@@ -1,6 +1,7 @@
 package com.ternopil.controllers;
 
 import com.ternopil.models.Institution;
+import com.ternopil.service.InstitutionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,15 @@ import java.util.List;
 @RequestMapping("/institution")
 @RequiredArgsConstructor
 public class InstitutionController {
+
+    private InstitutionService institutionService;
+
+    // Create new institution
+
+    @PostMapping
+    public void createInstitution(Institution institution) {
+        institutionService.createInstitution(institution);
+    }
 
     // Show all Institution
     @GetMapping
@@ -34,12 +44,6 @@ public class InstitutionController {
     @GetMapping("/{city}")
     public List<Institution> getInstituitonByCity(@RequestParam String city) {
         return null;
-    }
-
-    // Create new institution
-    @PostMapping
-    public void createNewInstitution(@RequestBody Institution institution) {
-
     }
 
     // Update institution

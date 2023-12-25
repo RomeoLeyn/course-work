@@ -1,8 +1,12 @@
 package com.ternopil.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "institution_photo")
 public class Photo {
     @Id

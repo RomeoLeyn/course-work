@@ -1,27 +1,30 @@
 package com.ternopil.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @Table(name = "country")
 public class Country {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long ID;
 
-    @Column(name = "country_name")
+    @Column(name = "country_name", unique = true, nullable = false)
     private String name;
 
-    @OneToMany
+    @OneToMany(mappedBy = "country")
     private List<City> city;
 
-    @OneToMany(mappedBy = "country")
-    @JoinColumn(name = "institution_id")
+    @OneToMany(mappedBy = "country", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<Institution> institution;
 }

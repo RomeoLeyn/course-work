@@ -2,6 +2,7 @@ package com.ternopil.models;
 
 import com.ternopil.models.enums.CommentStatus;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,15 +11,16 @@ import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @Table(name = "comment")
 public class Comment {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long ID;
 
-    @Column(name = "text")
+    @Column(name = "text", nullable = false)
     private String text;
 
     @Column(name = "rating")
