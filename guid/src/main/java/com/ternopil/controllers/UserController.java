@@ -1,6 +1,8 @@
 package com.ternopil.controllers;
 
+import com.ternopil.DTO.UserDTO;
 import com.ternopil.models.User;
+import com.ternopil.models.enums.RoleType;
 import com.ternopil.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -9,15 +11,19 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserService userService;
+    private UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     // Add user
     @PostMapping
-    public void postUser(@RequestBody User user) {
+    public void postUser(@RequestBody UserDTO user) {
         userService.createUser(user);
     }
 
@@ -34,20 +40,20 @@ public class UserController {
     }
 
     // Update user by id
-    @PutMapping("/{id}")
-    public void updateUser(@PathVariable Long ID, @RequestBody User user) {
-
+    @PutMapping("/update/{id}")
+    public void update(@RequestBody User user) {
+        userService.update(user);
     }
 
     // Delete user by id
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void removeUser(@PathVariable("id") Long ID) {
         userService.remove(ID);
     }
 
     // Get all moderators/adm
-    @GetMapping("/user/{role}")
-    public List<User> getAllUsersWithRole() {
-        return userService.getAllUsersWithRole();
+    @GetMapping("/by-role")
+    public List<User> getAllUsersWithRole(@RequestParam("roleType") RoleType roleType) {
+        return userService.getAllUsersWithRole(roleType);
     }
 }

@@ -1,6 +1,9 @@
 package com.ternopil.service.serviceImpl;
 
+import com.ternopil.DTO.UserDTO;
+import com.ternopil.mappers.UserMapper;
 import com.ternopil.models.User;
+import com.ternopil.models.enums.RoleType;
 import com.ternopil.repository.UserRepository;
 import com.ternopil.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +28,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void createUser(User user) {
+    public void createUser(UserDTO user) {
+        userRepository.save(UserMapper.INSTANCE.toModel(user));
+    }
+
+
+    @Override
+    public void update(User user) {
         userRepository.save(user);
     }
 
@@ -35,18 +44,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void update(User User) {
-
-    }
-
-    @Override
     public void remove(Long ID) {
         userRepository.deleteById(ID);
     }
 
     @Override
-    public List<User> getAllUsersWithRole() {
-        return null;
+    public List<User> getAllUsersWithRole(RoleType roleType) {
+        return userRepository.getUserByRoleType(roleType);
     }
-
 }

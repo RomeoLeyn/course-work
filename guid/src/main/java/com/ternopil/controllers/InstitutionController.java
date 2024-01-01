@@ -16,7 +16,6 @@ public class InstitutionController {
     private InstitutionService institutionService;
 
     // Create new institution
-
     @PostMapping
     public void createInstitution(Institution institution) {
         institutionService.createInstitution(institution);

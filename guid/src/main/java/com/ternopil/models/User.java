@@ -2,10 +2,7 @@ package com.ternopil.models;
 
 import com.ternopil.models.enums.RoleType;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -31,8 +28,8 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Enumerated(EnumType.ORDINAL)
     @Column(name = "role_type")
+    @Enumerated(EnumType.STRING)
     private RoleType roleType;
 
     @OneToMany(mappedBy = "user")
