@@ -1,12 +1,14 @@
 package com.ternopil.DTO;
 
-import com.ternopil.models.Comment;
 import com.ternopil.models.enums.RoleType;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.util.List;
 
 @Data
+@Getter
+@Setter
 public class UserDTO {
 
     private String firstName;
@@ -19,5 +21,4 @@ public class UserDTO {
 
     private RoleType roleType;
 
-//    private List<Comment> comments;
 }

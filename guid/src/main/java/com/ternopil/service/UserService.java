@@ -1,25 +1,26 @@
 package com.ternopil.service;
 
 import com.ternopil.DTO.UserDTO;
-import com.ternopil.models.User;
 import com.ternopil.models.enums.RoleType;
+import org.springframework.data.domain.PageRequest;
 
 
 import java.util.List;
-import java.util.Optional;
 
 
 public interface UserService  {
-    List<User> getAll();
 
-    void createUser(UserDTO user);
+    void createUser(UserDTO userDTO);
 
-    public void update(User user);
+    void update(Long ID, UserDTO userDTO);
 
-    Optional<User> findById(Long id);
+    UserDTO findById(Long id);
 
     void remove(Long ID);
 
-    List<User> getAllUsersWithRole(RoleType roleType);
+    List<UserDTO> getAllUsersWithRole(RoleType roleType, PageRequest pageRequest);
 
+    List<UserDTO> getAll(PageRequest pageRequest);
+
+    List<UserDTO> getUserByName(String name, PageRequest pageRequest);
 }
