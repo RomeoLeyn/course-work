@@ -14,6 +14,6 @@ import java.util.List;
 public interface InstitutionRepository extends JpaRepository<Institution, Long> {
     Page<Institution> getInstitutionByTypeKitchens(KitchensType typeKitchens, PageRequest pageRequest);
     Page<Institution> getInstitutionByTypeInstitution(InstitutionType institutionType, PageRequest pageRequest);
-
     Page<Institution> findByTypeInstitutionAndTypeKitchensAndCity(InstitutionType institutionType, KitchensType kitchensType, String city, PageRequest pageRequest);
+    Page<Institution> getInstitutionByCity(String city, PageRequest pageRequest);
 }

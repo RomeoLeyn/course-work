@@ -1,11 +1,14 @@
 package com.ternopil.controllers;
 
+import com.ternopil.DTO.CommentDTO;
 import com.ternopil.DTO.UserDTO;
 import com.ternopil.models.User;
 import com.ternopil.models.enums.RoleType;
+import com.ternopil.service.CommentService;
 import com.ternopil.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -21,9 +24,12 @@ public class UserController {
 
     private UserService userService;
 
+    private CommentService commentService;
+
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, CommentService commentService) {
         this.userService = userService;
+        this.commentService = commentService;
     }
 
     // Add user
@@ -53,7 +59,7 @@ public class UserController {
     }
 
     // Get user by id
-    @GetMapping("/{id}")
+    @GetMapping("/get-by/{id}")
     public ResponseEntity<UserDTO> findByID(@PathVariable("id") Long ID) {
         return ResponseEntity.ok(userService.findById(ID));
     }
@@ -66,6 +72,13 @@ public class UserController {
             @RequestParam(required = false, defaultValue = "10") int size
             ) {
         return userService.getUserByName(name, PageRequest.of(page, size));
+    }
+
+    @GetMapping("/{id}/comments")
+    List<CommentDTO> getAllUsersComments(@PathVariable Long id,
+                                         @RequestParam(required = false, defaultValue = "0") int page,
+                                         @RequestParam(required = false, defaultValue = "10") int size) {
+        return commentService.getAllCommentByUserId(id, PageRequest.of(page, size));
     }
 
     // Update user by id

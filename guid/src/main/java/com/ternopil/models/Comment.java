@@ -30,7 +30,7 @@ public class Comment {
     private double rating;
 
     @Column(name = "written")
-    private LocalDateTime written;
+    private LocalDateTime written_at;
 
     @Column(name = "is_approved")
     CommentStatus status;

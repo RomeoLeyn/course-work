@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @NoArgsConstructor
@@ -75,7 +76,7 @@ public class Institution {
 //    @JoinColumn(name = "city_id")
 //    private City city;
 
-    @OneToMany(mappedBy = "institution", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "institution", cascade = CascadeType.PERSIST)
     @JsonManagedReference
     private List<WorkingDays> workingDays;
 }

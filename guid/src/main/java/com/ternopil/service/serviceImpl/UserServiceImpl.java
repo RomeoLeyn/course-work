@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 @CacheConfig(cacheNames = "users")
 public class UserServiceImpl implements UserService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository) {
@@ -33,11 +33,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public void createUser(UserDTO userDTO) {
         User user = UserMapper.INSTANCE.toModel(userDTO);
+        user.setRoleType(RoleType.USER);
         userRepository.save(user);
     }
 
     @Override
-    @Cacheable(key = "#id")
+    @Cacheable
     public UserDTO findById(Long id) {
         Optional<User> optionalUser = userRepository.findById(id);
         User user = optionalUser.orElseThrow(() -> new NotFoundException("Not found"));
@@ -45,13 +46,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @CacheEvict("users")
+    @CacheEvict
     public void remove(Long ID) {
         userRepository.deleteById(ID);
     }
 
     @Override
-    @CachePut(cacheNames = "users",key = "#id")
+    @CacheEvict
     public void update(Long id, UserDTO userDTO) {
         Optional<User> userOptional = userRepository.findById(id);
         User user = userOptional.orElseThrow(() -> new NotFoundException("Not found user by id" + id));
@@ -65,21 +66,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Cacheable(key = "#roleType")
+    @Cacheable
     public List<UserDTO> getAllUsersWithRole(RoleType roleType, PageRequest pageRequest) {
         List<User> users = userRepository.getUserByRoleType(roleType, pageRequest).getContent();
         return users.stream().map(UserMapper.INSTANCE::toDTO).collect(Collectors.toList());
     }
 
     @Override
-    @Cacheable(key = "#pageRequest")
+    @Cacheable
     public List<UserDTO> getAll(PageRequest pageRequest) {
         List<User> users = userRepository.findAll(pageRequest).getContent();
         return users.stream().map(UserMapper.INSTANCE::toDTO).collect(Collectors.toList());
     }
 
     @Override
-    @Cacheable(key = "#name")
+    @Cacheable
     public List<UserDTO> getUserByName(String name, PageRequest pageRequest) {
         List<User> users = userRepository.getUserByFirstNameContainingIgnoreCase(name, pageRequest).getContent();
         return users.stream().map(UserMapper.INSTANCE::toDTO).collect(Collectors.toList());

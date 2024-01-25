@@ -1,7 +1,8 @@
 package com.ternopil.service;
 
+import com.ternopil.DTO.CommentDTO;
 import com.ternopil.DTO.InstitutionDTO;
-import com.ternopil.models.WorkingDays;
+import com.ternopil.DTO.InstitutionSummaryDTO;
 import com.ternopil.models.enums.InstitutionType;
 import com.ternopil.models.enums.KitchensType;
 import org.springframework.data.domain.PageRequest;
@@ -9,16 +10,20 @@ import org.springframework.data.domain.PageRequest;
 import java.util.List;
 
 public interface InstitutionService {
-    void createInstitution(InstitutionDTO institutionDTO);
+    InstitutionDTO createInstitution(InstitutionDTO institutionDTO);
 
-    void workDays(Long id, WorkingDays workingDays);
-    List<InstitutionDTO> gettAll(PageRequest pageRequest);
+//    void workDays(Long id, WorkingDays workingDays);
+    List<InstitutionSummaryDTO> getAll(PageRequest pageRequest);
 
-    List<InstitutionDTO> getByKitchenType(KitchensType typeKitchens, PageRequest pageRequest);
+    InstitutionDTO findById(Long id);
 
-    List<InstitutionDTO> getByInstitutionType(InstitutionType institutionType, PageRequest pageRequest);
+    List<InstitutionSummaryDTO> getByKitchenType(KitchensType typeKitchens, PageRequest pageRequest);
+
+    List<InstitutionSummaryDTO> getByInstitutionType(InstitutionType institutionType, PageRequest pageRequest);
 
     List<InstitutionDTO> getByFilter(InstitutionType institutionType, KitchensType kitchensType, String city, PageRequest pageRequest);
+
+    List<InstitutionDTO> getByCity(String city, PageRequest pageRequest);
 
     void update(Long id, InstitutionDTO institutionDTO);
 

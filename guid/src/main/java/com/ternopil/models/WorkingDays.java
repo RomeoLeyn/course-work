@@ -37,4 +37,9 @@ public class WorkingDays {
     @JsonBackReference
     private Institution institution;
 
+    public void setInstitutionAndSave(Institution institution) {
+        this.institution = institution;
+        institution.getWorkingDays().add(this);
+    }
+
 }
