@@ -18,8 +18,8 @@ import java.time.LocalTime;
 @Table(name = "working_days")
 public class WorkingDays {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE/*, generator = "working_days_seq"*/)
-//    @SequenceGenerator(name = "working_days_seq", sequenceName = "working_days_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "working_days_seq")
+    @SequenceGenerator(name = "working_days_seq", sequenceName = "working_days_seq", allocationSize = 1)
     private Long ID;
 
     @Column(name = "work_days")

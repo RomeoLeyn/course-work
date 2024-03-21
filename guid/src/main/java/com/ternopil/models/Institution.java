@@ -21,8 +21,8 @@ import java.util.stream.Collectors;
 @Table(name = "institution")
 public class Institution {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE/*, generator = "institution_seq"*/)
-//    @SequenceGenerator(name = "institution_seq", sequenceName = "institution_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "institution_seq")
+    @SequenceGenerator(name = "institution_seq", sequenceName = "institution_seq", allocationSize = 1)
     private Long ID;
 
     @OneToMany(mappedBy = "institution")

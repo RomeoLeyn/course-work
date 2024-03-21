@@ -4,11 +4,10 @@ import com.ternopil.DTO.CommentDTO;
 import com.ternopil.DTO.UserDTO;
 import com.ternopil.models.User;
 import com.ternopil.models.enums.RoleType;
-import com.ternopil.service.CommentService;
-import com.ternopil.service.UserService;
+import com.ternopil.services.CommentService;
+import com.ternopil.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -33,8 +32,8 @@ public class UserController {
     }
 
     // Add user
-    @PostMapping
-    public ResponseEntity<User> postUser(@RequestBody UserDTO userDTO) {
+    @PostMapping("/create-user")
+    public ResponseEntity<User> createNewUser(@RequestBody UserDTO userDTO) {
         userService.createUser(userDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -84,6 +83,11 @@ public class UserController {
     // Update user by id
     @PutMapping("/update/{id}")
     public void update(@PathVariable Long id, @RequestBody UserDTO userDTO) {
+        userService.update(id, userDTO);
+    }
+
+    @PutMapping("/update-role-type/{id}")
+    public void updateRoleType(@PathVariable Long id, @RequestBody UserDTO userDTO) {
         userService.update(id, userDTO);
     }
 

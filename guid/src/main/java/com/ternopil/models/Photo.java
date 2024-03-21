@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @Table(name = "institution_photo")
 public class Photo {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY/*, generator = "institution_photo_id_seq"*/)
-//    @SequenceGenerator(name = "institution_photo_id_seq", sequenceName = "institution_photo_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "institution_photo_id_seq")
+    @SequenceGenerator(name = "institution_photo_id_seq", sequenceName = "institution_photo_id_seq", allocationSize = 1)
     private Long ID;
 
     @Column(name = "name_image")

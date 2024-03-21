@@ -8,7 +8,7 @@ import com.ternopil.models.WorkingDays;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = "spring")
+@Mapper
 public interface InstitutionMapper {
     InstitutionMapper INSTANCE = Mappers.getMapper(InstitutionMapper.class);
 

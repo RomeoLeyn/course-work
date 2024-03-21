@@ -3,11 +3,10 @@ package com.ternopil.controllers;
 import com.ternopil.DTO.CommentDTO;
 import com.ternopil.DTO.InstitutionDTO;
 import com.ternopil.DTO.InstitutionSummaryDTO;
-import com.ternopil.models.Comment;
 import com.ternopil.models.enums.InstitutionType;
 import com.ternopil.models.enums.KitchensType;
-import com.ternopil.service.CommentService;
-import com.ternopil.service.InstitutionService;
+import com.ternopil.services.CommentService;
+import com.ternopil.services.InstitutionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -33,7 +32,7 @@ public class InstitutionController {
     }
 
     // Create new institution
-    @PostMapping
+    @PostMapping("/create-institution")
     public ResponseEntity<InstitutionDTO> createInstitution(@RequestBody InstitutionDTO institutionDTO) {
         InstitutionDTO institutionDTOSaved = institutionService.createInstitution(institutionDTO);
         var location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").
@@ -42,7 +41,7 @@ public class InstitutionController {
     }
 
     // Show all Institution
-    @GetMapping
+    @GetMapping("/get-all-institution")
     public List<InstitutionSummaryDTO> getAllInstitution(@RequestParam(required = false, defaultValue = "0") int page,
                                                          @RequestParam(required = false, defaultValue = "10") int size) {
         return institutionService.getAll(PageRequest.of(page, size, Sort.by("name")));

@@ -1,9 +1,8 @@
 package com.ternopil.controllers;
 
 import com.ternopil.DTO.CommentDTO;
-import com.ternopil.models.Comment;
 import com.ternopil.models.enums.CommentStatus;
-import com.ternopil.service.CommentService;
+import com.ternopil.services.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -48,7 +47,7 @@ public class CommentController {
         return commentService.getAllUnModeratedComment(commentStatus, PageRequest.of(page, size));
     }
 
-    // Update commentstatus (use only admin/moderator)
+    // Update comment status (use only admin/moderator)
     @PutMapping("/change-status/{id}")
     public void changeUnModeratedComment(@PathVariable Long id, @RequestParam CommentStatus status) {
         commentService.changeCommentStatus(id, status);

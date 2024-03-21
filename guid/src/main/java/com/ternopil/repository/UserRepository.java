@@ -14,4 +14,5 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Long> {
     Page<User> getUserByRoleType(RoleType roleType, PageRequest pageRequest);
     Page<User> getUserByFirstNameContainingIgnoreCase(String name, PageRequest pageRequest);
+    Optional<User> findByFirstName(String firstName);
 }
